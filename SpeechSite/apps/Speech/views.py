@@ -13,7 +13,7 @@ from django.http import FileResponse
 from django.http import HttpResponse
 
 
-api_url = "http://192.168.1.218:8000/api/speech_api/"
+api_url = "http://78.142.222.199:8000/api/speech_api/"
 
 def save_result_file(session_id, result_txt):
     path = os.path.join('static', f'txt_{session_id}.txt')
