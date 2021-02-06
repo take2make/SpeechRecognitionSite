@@ -7,24 +7,37 @@ import os
 import threading
 import time
 import shutil
+import os
+from django.conf import settings
+from django.http import FileResponse
+from django.http import HttpResponse
+
 
 api_url = "http://192.168.1.218:8000/api/speech_api/"
 
+def save_result_file(session_id, result_txt):
+    path = os.path.join('static', f'txt_{session_id}.txt')
+    with open(path, 'w') as file:
+        file.write(result_txt)
+    pass
 
 def get_data_from_session(url_session):
+    session_id = url_session.split('/')[-2]
+    print(session_id)
     while True:
         time.sleep(1)
         response = scripts.get_json(url_session)
         print(response)
         if response['detail'] == 200:
             result_txt = response['result']
+            save_result_file(session_id, result_txt)
             break
 
 
 def index(request):
     form = SelectForm()
 
-    context = {'form': form,'text':'result'}
+    context = {'form': form,'text':'he will be your text ...', 'loaded': False}
 
     if (request.method == 'POST'):
 
@@ -70,6 +83,7 @@ def index(request):
             main_thread.join()
 
             result_txt = scripts.get_json(url_session)['result']
-            context = {'form': form, 'text': result_txt}
+            file = f'txt_{session_id}.txt'
+            context = {'form': form, 'text': result_txt, 'file': str(file), 'loaded': True}
 
     return render(request, 'index.html', context=context)

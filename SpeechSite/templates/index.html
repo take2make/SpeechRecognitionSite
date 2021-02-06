@@ -72,12 +72,19 @@
               <div class="container rectangle-4-C61RwL">
 
                 <div class="row">
-                  <div class="button-wrapper">
-                      <button onclick="myFunction()" class="btn2" type="submit">
-    					             <div class="col">
-                              <img class="group-7-VMr6Om" style="position: sticky;" src="{% static 'images/load.svg' %}">
-                           </div>
-    						      </button>
+                  <div class="col">
+                    <div class="button-wrapper">
+                        <button onclick="myFunction()" class="btn2" type="submit">
+      					             <div class="col">
+                                <img class="group-7-VMr6Om" style="position: sticky;" src="{% static 'images/load.svg' %}">
+                             </div>
+      						      </button>
+                    </div>
+                  </div>
+                  <div class="col">
+                    {% if loaded %}
+                      <a href="/static/{{ file }}" class="btn2" download>Download</a>
+                    {% endif %}
                   </div>
                 </div>
 
