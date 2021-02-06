@@ -6,7 +6,7 @@ import scripts
 import os
 import threading
 import time
-
+import shutil
 
 api_url = "http://192.168.1.218:8000/api/speech_api/"
 
@@ -29,21 +29,39 @@ def index(request):
     if (request.method == 'POST'):
 
         form = SelectForm(request.POST)
-        uploaded_file = request.FILES["document"]
-        model_id = request.POST["language_model"].split('_')[-1]
-        model = language_model_choices[int(model_id)][-1]
+        uploaded_file = request.FILES["upload_file"]
 
         fs = File()
         fs.save(uploaded_file.name, uploaded_file)
+
+        model_id = request.POST["language_model"].split('_')[-1]
+        model = language_model_choices[int(model_id)][-1]
 
         print('uploaded_file is \n',uploaded_file.name, '\n and model is', model)
 
         file = os.path.join('media', uploaded_file.name)
         encoded_data = scripts.encode_file(file)
-        os.remove(file)
         extension = uploaded_file.name.split('.')[-1]
+        os.remove(file)
 
-        response = scripts.send_json(api_url, encoded_data, extension, model)
+        if 'choose_vocab' in request.FILES:
+            print('CHOSED VOCAB')
+
+            vocab = request.FILES["choose_vocab"]
+            fs = File()
+            fs.save(vocab.name, vocab)
+
+            file_vocab = os.path.join('media', vocab.name)
+            with open(file_vocab, 'r') as f:
+                file_txt = f.read()
+            os.remove(file_vocab)
+
+            response = scripts.send_json(api_url, encoded_data, extension, model, file_txt)
+        else:
+            print('VOCAB WAS NOT CHOSEN')
+
+            response = scripts.send_json(api_url, encoded_data, extension, model, '')
+
         if response['detail'] == 200:
             session_id = response['session_id']
             url_session = f'{api_url}{session_id}/'

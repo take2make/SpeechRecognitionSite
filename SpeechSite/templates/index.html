@@ -1,113 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
+<html>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Audio2Text</title>
     {% load static %}
-    <!-- Custom styles for this template-->
     <link href="{% static 'css/all.css' %}" rel="stylesheet">
+    <link href="{% static 'css/all2.css' %}" rel="stylesheet">
+    <link href="{% static 'css/text.css' %}" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-</head>
+  </head>
+   <body>
+     <div class="imac-1 container">
+        <img class="group-2-C61RwL" src="{% static 'images/logoaudio.svg' %}">
+        <form method="post" class="cf" enctype="multipart/form-data">
+        {% csrf_token %}
 
-<body id="content" style="text-align: center;">
+        <div class="row">
+          <div class="col">
 
-<div class="top-colors"></div>
+            <img class="rectangle-3-C61RwL" data-id="4:5" src="https://cdn.animaapp.com/projects/5fdd53490136fca9d0284658/releases/601d8cb0daf0868897bcc177/img/rectangle-3@2x.svg" anima-src="https://cdn.animaapp.com/projects/5fdd53490136fca9d0284658/releases/601d8cb0daf0868897bcc177/img/rectangle-3@2x.svg">
 
-<!--  HEADER  -->
+            <div class="container rectangle-2-C61RwL">
 
-<header>
-  <div class="logo-wrapper">
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="hsl(216deg 90% 54%)" class="bi bi-mic" viewBox="0 0 16 16">
-	  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
-	  <path fill-rule="evenodd" d="M10 8V3a2 2 0 1 0-4 0v5a2 2 0 1 0 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"/>
-	</svg>
-    <div class="text-wrapper">
-    	<div class="text-logo"><span>audio2</span>text</div>
-    </div>
-  </div>
-</header>
+              <div class="row">
+                <h1 class="please-upl-audio-file-C61RwL" data-id="1:33">Please, upload your audio file</h1>
+              </div>
 
-<main>
-    <!-- Content Row -->
+              <div class="row">
+                <div class="button-wrapper">
+                       <div class="col">
+                         <img class="group-4-C61RwL" data-id="4:33" src="{% static 'images/choose.svg' %}">
+                       </div>
+                   <input type="file" name="upload_file">
+                </div>
+              </div>
 
-    	<div class="container">
-				 <form method="post" enctype="multipart/form-data">
-           {% csrf_token %}
-				      <div class="row">
-				    	<div class="col">
-					       <div class="button-wrapper">
-					          <button class="btn2" style="text-transform: capitalize;font-size:20px;">
-					          	<div class="row">
-					             <div class="col" style="text-align: center;text-align: right;">
-					          	  <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-								  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-								  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
-								 </div>
-								 <div class="col" style="text-align: center;padding-top: 15px;padding-bottom: 10px;padding-right: 20px;text-align: left;">
-						          choose file
-						         </div>
-						        </div>
-							   </button>
-					          <input type="file" name="document">
-					      </div>
-					    </div>
+              <div class="row">
+                <div class="dropdown" style="width: 189px; height: 45px; border-radius: 0.6rem; padding: 10 10; background: #001022;">
+                 <div class="select">
+                   <span style="color: #fbfbfd;">Select Model</span>
+                   <i class="fa fa-chevron-left"></i>
+                 </div>
+                 <input type="hidden" name="language_model">
+                 <ul class="dropdown-menu">
+                     {% for name in form.language_model %}
+                         <li id="{{name.id_for_label}}">{{name.tag}}</li>
+                     {% endfor %}
+                 </ul>
+               </div>
+              </div>
 
-					    <div class="col">
-					       <div class="dropdown">
-					        <div class="select">
-					          <span>Select Model</span>
-					          <i class="fa fa-chevron-left"></i>
-					        </div>
-					        <input type="hidden" name="language_model">
-					        <ul class="dropdown-menu">
-                      {% for name in form.language_model %}
-      					          <li id="{{name.id_for_label}}">{{name.tag}}</li>
-                      {% endfor %}
-					        </ul>
-					      </div>
-						</div>
+              <div class="row">
+                <div class="button-wrapper">
 
-						<div class="col">
-			            	<div class="button-wrapper">
-						          <button onclick="myFunction()" class="btn2" style="text-transform: capitalize;font-size:20px;" type="submit">
-						          	<div class="row">
-						             <div class="col" style="text-align: center;text-align: right;">
-						          	  <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-									  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-									  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-									 </div>
-									 <div class="col" style="text-align: center;padding-top: 15px;padding-bottom: 10px;padding-right: 20px;text-align: left;">
-							          Load
-							         </div>
-							        </div>
-								   </button>
+                    <div class="group-8-C61RwL" style="border: 3px solid #a5ed00;">
+                      <div class="select" style="font-size: 22px;transition: all .5s ease; color:#fbfbfd">
+                        <span style="top: 0.5rem; color: #fbfbfd;position: relative;padding: 10 10;">Vocabulary</span>
+                      </div>
+                      <input type="file" name="choose_vocab" style="font-size:40px">
+                   </div>
+              </div>
+            </div>
+            <img class="image-4-C61RwL" data-id="4:32" src="https://cdn.animaapp.com/projects/5fdd53490136fca9d0284658/releases/601bb0dc773d1acb63040d68/img/image-4@2x.png" anima-src="https://cdn.animaapp.com/projects/5fdd53490136fca9d0284658/releases/601bb0dc773d1acb63040d68/img/image-4@2x.png">
 
-						      </div>
-			            </div>
 
-					  </div>
-				</form>
-    		 <div id="loader_view" class="card-body">
-          <div id="loader" class="loader">
-             <svg class="circular" viewBox="25 25 50 50">
-               <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-             </svg>
+            </div>
+
+          <div class="col">
+              <div class="container rectangle-4-C61RwL">
+
+                <div class="row">
+                  <div class="button-wrapper">
+                      <button onclick="myFunction()" class="btn2" type="submit">
+    					             <div class="col">
+                              <img class="group-7-VMr6Om" style="position: sticky;" src="{% static 'images/load.svg' %}">
+                           </div>
+    						      </button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div id="loader_view" class="lorem-ipsu-erra-massa-C61RwL arimo-normal-black-18px" style="position: sticky;">
+                   <div id="loader" class="loader">
+                      <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                      </svg>
+                   </div>
+                      <div id="text" class="half right cf" style="width:100%">
+                        <textarea name="message" type="text" id="input-message" placeholder="Message"> {{ text }} </textarea>
+                      </div>
+         		    </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
-           <div id="text">
-		           {{ text }}
-           </div>
-		    </div>
-		</div>
-<script src="{% static 'js/all.js' %}"></script>
 
-</main>
-</body>
+            </div>
+        </form>
+      </div>
+      <script src="{% static 'js/all.js' %}"></script>
+   </body>
 
 </html>

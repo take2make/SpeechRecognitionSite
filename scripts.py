@@ -13,7 +13,7 @@ def encode_file(file):
 	return encoded_data
 
 
-def send_json(url, encoded_data, extension, model):
-    params = {'encoded_data': encoded_data, 'ext': extension, 'model': model}
+def send_json(url, encoded_data, extension, model, vocab):
+    params = {'encoded_data': encoded_data, 'ext': extension, 'model': model, 'vocab': vocab}
     response = requests.post(url, data=params)
     return response.json()
