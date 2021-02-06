@@ -24,9 +24,9 @@ PROJECT_DIR = os.path.join(BASE_DIR, 'SpeechSite')
 SECRET_KEY = '3&6%p(-a^y#svqh)0f%att6&(r$f67v=l4y!1a2vomq+sqor@1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
